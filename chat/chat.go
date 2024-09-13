@@ -141,8 +141,10 @@ func RmPrompt(param string, userId string) string {
 func GetPrompt(param string, userId string) string {
 	botType := config.GetUserBotType(userId)
 	prompt, err := db.GetPrompt(userId, botType)
-	if err != nil {
-		return fmt.Sprintf("%s 当前未设置prompt", botType)
+	if err != nil || prompt == "" {
+		prompt := os.Getenv("DEFAULT_PROMPT")
+		err = nil
+        return fmt.Sprintf("%s 当前未设置prompt，使用默认prompt：%s", botType, prompt)
 	}
 	return fmt.Sprintf("%s 获取prompt成功，prompt：%s", botType, prompt)
 }
