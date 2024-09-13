@@ -306,6 +306,14 @@ func GetMsgListWithDb[T ChatMsg](botType, userId string, msg T, f func(msg T) db
 				Role: "system",
 				Msg:  prompt,
 			})
+		} else {
+			defaultPrompt := os.Getenv("DEFAULT_PROMPT")
+			if defaultPrompt != "" {
+				dbList = append(dbList, db.Msg{
+					Role: "system",
+					Msg:  defaultPrompt,
+				})
+			}
 		}
 	}
 	if db.ChatDbInstance != nil {
