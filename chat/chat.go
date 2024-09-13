@@ -144,6 +144,7 @@ func GetPrompt(param string, userId string) string {
 	if err != nil {
 		defaultPrompt := os.Getenv("DEFAULT_PROMPT")
         return fmt.Sprintf("%s 当前未设置prompt，使用默认prompt：%s", botType, defaultPrompt)
+		err = nil
 	}
 	return fmt.Sprintf("%s 获取prompt成功，prompt：%s", botType, prompt)
 }
